@@ -5,10 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 
+import { AuthProvider } from './hooks/useAuth';
+
 ReactDOM.render(
   <StrictMode>
     <ColorModeScript />
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+
   </StrictMode>,
   document.getElementById('root')
 );

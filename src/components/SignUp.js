@@ -3,10 +3,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import {
   Box,
-  Button,
-  Flex,
+  Button, Flex,
   FormControl,
-  FormHelperText,
   FormLabel,
   Grid,
   Heading,
@@ -18,11 +16,10 @@ import {
 import { useAuth } from '../hooks/useAuth';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 
-
-const SignIn = () => {
+const SignUp = () => {
   const history = useHistory();
   const { register, handleSubmit, formState } = useForm();
-  const { user, signIn } = useAuth();
+  const { user, createUserWithEmailAndPassword } = useAuth();
 
   useEffect(() => {
     if (user) {
@@ -31,11 +28,11 @@ const SignIn = () => {
   }, [user, history]);
 
   const onSubmit = async data => {
-    try {
-      await signIn(data.email, data.password);
+    if (data.password === data.confirmPassword) {
+      await createUserWithEmailAndPassword(data.email, data.password);
       history.push('/');
-    } catch (error) {
-      console.log(error);
+    } else {
+      console.error('No Match!');
     }
   };
 
@@ -43,24 +40,27 @@ const SignIn = () => {
     <Box textAlign='center' fontSize='xl'>
       <Grid minH='100vh' p={3}>
         <Flex justifyContent='flex-end' alignItems='center'>
-          <Text fontSize='xs' mr={3}>New to PassPhoto?</Text>
-          <Link to='/signup'>
-            <Button justifySelf='flex-start' display='inline'>Create Account</Button>
+          <Text fontSize='xs' mr={3}>Have an Account?</Text>
+          <Link to='/signin'>
+            <Button justifySelf='flex-start' display='inline'>Sign In</Button>
           </Link>
           <ColorModeSwitcher />
         </Flex>
         <VStack spacing={8}>
           <Box maxW='lg' minW='sm'>
-            <Heading as='h1' size='lg' mb={5}>Sign In</Heading>
+            <Heading as='h1' size='lg' mb={5}>Sign Up</Heading>
             <form onSubmit={handleSubmit(onSubmit)}>
               <FormControl id='email' mb={3}>
                 <FormLabel>Email address</FormLabel>
-                <Input name='email' type='email' {...register('email')} />
+                <Input type='email' {...register('email')} />
               </FormControl>
               <FormControl id='password' mb={7}>
                 <FormLabel>Password</FormLabel>
-                <Input name='password' type='password' {...register('password')} />
-                <FormHelperText textAlign='right'>Forgot Password?</FormHelperText>
+                <Input type='password' {...register('password')} />
+              </FormControl>
+              <FormControl id='confirmPassword' mb={7}>
+                <FormLabel>Confirm Password</FormLabel>
+                <Input type='confirmPassword' {...register('confirmPassword')} />
               </FormControl>
               <Button
                 size='md'
@@ -72,7 +72,7 @@ const SignIn = () => {
                 variant='outline'
                 type='submit'
               >
-                Sign In
+                Create Account
               </Button>
             </form>
             <Text color='gray.500' fontSize='xs'>
@@ -85,4 +85,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
