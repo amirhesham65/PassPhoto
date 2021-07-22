@@ -1,15 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-
-firebase.initializeApp({
-  apiKey: process.env.REACT_APP_FB_API,
-  authDomain: process.env.REACT_APP_FB_DOMAIN,
-  projectId: process.env.REACT_APP_FB_PROJECT,
-  storageBucket: process.env.REACT_APP_FB_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FB_SENDER,
-  appID: process.env.REACT_APP_FB_APP,
-});
+import { firebaseAuth } from '../config/firebase';
 
 const AuthContext = createContext();
 
@@ -23,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
 
   const createUserWithEmailAndPassword = (email, password) => {
-    return firebase.auth().createUserWithEmailAndPassword(email, password)
+    return firebaseAuth.createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         setUser(userCredentials.user);
         setIsAuthenticating(false);
@@ -34,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signIn = (email, password) => {
-    return firebase.auth().signInWithEmailAndPassword(email, password)
+    return firebaseAuth.signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         setUser(userCredentials.user);
         setIsAuthenticating(false);
@@ -45,14 +35,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signOut = () => {
-    return firebase.auth().signOut()
+    return firebaseAuth.signOut()
       .then(() => {
         setUser(null);
       });
   };
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
       setUser(user);
       setIsAuthenticating(false);
     });

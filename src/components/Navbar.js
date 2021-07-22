@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Flex, Image, Button, HStack } from '@chakra-ui/react';
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../utils/useAuth';
 import { GoSignOut } from 'react-icons/go';
 import logo from '../images/logo.svg';
 

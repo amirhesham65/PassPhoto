@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 
-import { AuthProvider } from './hooks/useAuth';
+import { AuthProvider } from './utils/useAuth';
 
 ReactDOM.render(
   <StrictMode>

@@ -15,8 +15,8 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-import { useAuth } from '../hooks/useAuth';
-import { ColorModeSwitcher } from '../ColorModeSwitcher';
+import { useAuth } from '../../utils/useAuth';
+import { ColorModeSwitcher } from '../../ColorModeSwitcher';
 
 
 const SignIn = () => {

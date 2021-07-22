@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Text, VStack } from '@chakra-ui/react';
 import { GoPlus } from 'react-icons/go';
-import Navbar from './Navbar';
+import Navbar from '../Navbar';
 
 const Gallery = () => {
 

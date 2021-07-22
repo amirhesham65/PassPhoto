@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ChakraProvider, theme } from '@chakra-ui/react';
-import PrivateRoute from './routes/PrivateRoute';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import Gallery from './components/Gallery';
+import PrivateRoute from './utils/PrivateRoute';
+import SignIn from './components/routes/SignIn';
+import SignUp from './components/routes/SignUp';
+import Gallery from './components/routes/Gallery';
 
 function App() {
   return (
