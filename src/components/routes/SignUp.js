@@ -14,7 +14,6 @@ import {
 } from '@chakra-ui/react';
 
 import { useAuth } from '../../utils/useAuth';
-import { ColorModeSwitcher } from '../../ColorModeSwitcher';
 
 const SignUp = () => {
   const history = useHistory();
@@ -39,12 +38,11 @@ const SignUp = () => {
   return (
     <Box textAlign='center' fontSize='xl'>
       <Grid minH='100vh' p={3}>
-        <Flex justifyContent='flex-end' alignItems='center'>
+        <Flex justifyContent='flex-end' alignItems='center' mx={5}>
           <Text fontSize='xs' mr={3}>Have an Account?</Text>
           <Link to='/signin'>
             <Button justifySelf='flex-start' display='inline'>Sign In</Button>
           </Link>
-          <ColorModeSwitcher />
         </Flex>
         <VStack spacing={8}>
           <Box maxW='lg' minW='sm'>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, Flex, Image, Button, HStack } from '@chakra-ui/react';
-import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { useAuth } from '../utils/useAuth';
 import { GoSignOut } from 'react-icons/go';
 import logo from '../images/logo.svg';
@@ -23,7 +22,6 @@ const Navbar = () => {
           leftIcon={<GoSignOut />}
           onClick={signOut}
         >Logout</Button>
-        <ColorModeSwitcher />
       </HStack>
     </Flex>
   );
