@@ -28,7 +28,7 @@ const SignUp = () => {
 
   const onSubmit = async data => {
     if (data.password === data.confirmPassword) {
-      await createUserWithEmailAndPassword(data.email, data.password);
+      await createUserWithEmailAndPassword(data.name, data.email, data.password);
       history.push('/');
     } else {
       console.error('No Match!');
@@ -48,6 +48,10 @@ const SignUp = () => {
           <Box maxW='lg' minW='sm'>
             <Heading as='h1' size='lg' mb={5}>Sign Up</Heading>
             <form onSubmit={handleSubmit(onSubmit)}>
+              <FormControl id='name' mb={3}>
+                <FormLabel>Name</FormLabel>
+                <Input type='text' {...register('name')} />
+              </FormControl>
               <FormControl id='email' mb={3}>
                 <FormLabel>Email address</FormLabel>
                 <Input type='email' {...register('email')} />
@@ -58,7 +62,7 @@ const SignUp = () => {
               </FormControl>
               <FormControl id='confirmPassword' mb={7}>
                 <FormLabel>Confirm Password</FormLabel>
-                <Input type='confirmPassword' {...register('confirmPassword')} />
+                <Input type='password' {...register('confirmPassword')} />
               </FormControl>
               <Button
                 size='md'

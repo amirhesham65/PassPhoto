@@ -13,8 +13,8 @@ function App() {
       <Switch>
         <ChakraProvider theme={theme}>
           <PrivateRoute exact path="/">
-            {/* <Gallery /> */}
-            <PickPasscode />
+            <Gallery />
+            {/* <PickPasscode /> */}
           </PrivateRoute>
           <Route path='/signin'>
             <SignIn />

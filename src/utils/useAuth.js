@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { firebaseAuth } from '../config/firebase';
+import { firebaseAuth, firebaseFirestore } from '../config/firebase';
 
 const AuthContext = createContext();
 
@@ -12,33 +12,46 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
 
-  const createUserWithEmailAndPassword = (email, password) => {
-    return firebaseAuth.createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        setUser(userCredentials.user);
-        setIsAuthenticating(false);
-        console.log('User is created: ' + userCredentials.user.email);
-      }).catch(error => {
-        console.error(error);
-      });
+  const collectionRef = firebaseFirestore.collection("users");
+
+  const createUserWithEmailAndPassword = async (userName, email, password) => {
+    try {
+      const userCredentials = await firebaseAuth.createUserWithEmailAndPassword(email, password);
+      await userCredentials.user.updateProfile({"displayName": userName});
+      const newUser = {
+        "email": userCredentials.user.email,
+        "name": userName,
+        "uid": userCredentials.user.uid,
+        "passcode": null
+      }
+      await collectionRef.doc(userCredentials.user.uid).set(newUser);
+      setUser(newUser);
+      setIsAuthenticating(false);
+      return newUser;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const signIn = (email, password) => {
-    return firebaseAuth.signInWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        setUser(userCredentials.user);
-        setIsAuthenticating(false);
-        console.log('User is logged: ' + userCredentials.user.email);
-      }).catch(error => {
-        console.error(error);
-      });
+  const signIn = async (email, password) => {
+    try {
+      const userCredentials = await firebaseAuth.signInWithEmailAndPassword(email, password);
+      const doc = await collectionRef.doc(userCredentials.user.uid).get();
+      var currentUser = null;
+      if(doc.exists) {
+        currentUser = doc.data();
+        setUser(currentUser);
+      }
+      setIsAuthenticating(false);
+      return currentUser;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const signOut = () => {
-    return firebaseAuth.signOut()
-      .then(() => {
-        setUser(null);
-      });
+  const signOut = async () => {
+    await firebaseAuth.signOut();
+    setUser(null);
   };
 
   useEffect(() => {
