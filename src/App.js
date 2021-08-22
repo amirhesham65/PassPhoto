@@ -5,6 +5,7 @@ import PrivateRoute from './utils/PrivateRoute';
 import SignIn from './components/routes/SignIn';
 import SignUp from './components/routes/SignUp';
 import Gallery from './components/routes/Gallery';
+import PickPasscode from './components/routes/PickPasscode';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <Switch>
         <ChakraProvider theme={theme}>
           <PrivateRoute exact path="/">
-            <Gallery />
+            {/* <Gallery /> */}
+            <PickPasscode />
           </PrivateRoute>
           <Route path='/signin'>
             <SignIn />
