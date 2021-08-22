@@ -7,6 +7,14 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
+const saveUserToLocalStorage = (user) => {
+  localStorage.setItem("user", JSON.stringify(user))
+}
+
+const getUserFromLocalStorage = () => {
+  return JSON.parse(localStorage.getItem("user"));
+}
+
 // The AuthProvider component
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
@@ -26,6 +34,7 @@ export const AuthProvider = ({ children }) => {
       }
       await collectionRef.doc(userCredentials.user.uid).set(newUser);
       setUser(newUser);
+      saveUserToLocalStorage(newUser);
       setIsAuthenticating(false);
       return newUser;
     } catch (error) {
@@ -42,6 +51,7 @@ export const AuthProvider = ({ children }) => {
         currentUser = doc.data();
         setUser(currentUser);
       }
+      saveUserToLocalStorage(currentUser);
       setIsAuthenticating(false);
       return currentUser;
     } catch (error) {
@@ -56,7 +66,9 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
-      setUser(user);
+      if (user.email) {
+        setUser(getUserFromLocalStorage());
+      }
       setIsAuthenticating(false);
     });
 
