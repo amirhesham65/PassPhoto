@@ -22,14 +22,18 @@ const SignUp = () => {
 
   useEffect(() => {
     if (user) {
-      history.push('/');
+      if (!user.passcode) {
+        history.push('/pickpasscode');
+      } else {
+        history.push('/');
+      }
     }
   }, [user, history]);
 
   const onSubmit = async data => {
     if (data.password === data.confirmPassword) {
       await createUserWithEmailAndPassword(data.name, data.email, data.password);
-      history.push('/');
+      history.push('/pickpasscode');
     } else {
       console.error('No Match!');
     }

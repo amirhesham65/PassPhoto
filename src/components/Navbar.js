@@ -5,8 +5,7 @@ import { GoSignOut } from 'react-icons/go';
 import logo from '../images/logo.svg';
 
 const Navbar = () => {
-  const { signOut, user } = useAuth();
-  console.log(user);
+  const { signOut } = useAuth();
   return (
     <Flex alignItems='center' justifyContent='space-between'>
       <Flex id='logo' alignItems='inherit'>

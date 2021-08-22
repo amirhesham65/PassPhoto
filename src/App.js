@@ -14,7 +14,6 @@ function App() {
         <ChakraProvider theme={theme}>
           <PrivateRoute exact path="/">
             <Gallery />
-            {/* <PickPasscode /> */}
           </PrivateRoute>
           <Route path='/signin'>
             <SignIn />
@@ -22,6 +21,9 @@ function App() {
           <Route path='/signup'>
             <SignUp />
           </Route>
+          <PrivateRoute path='/pickpasscode'>
+            <PickPasscode />
+          </PrivateRoute>
         </ChakraProvider>
       </Switch>
     </Router>

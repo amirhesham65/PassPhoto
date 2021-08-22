@@ -66,8 +66,10 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged(user => {
-      if (user.email) {
+      if (user) {
         setUser(getUserFromLocalStorage());
+      } else {
+        setUser(null);
       }
       setIsAuthenticating(false);
     });

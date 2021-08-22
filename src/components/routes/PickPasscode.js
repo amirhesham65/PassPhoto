@@ -1,28 +1,21 @@
-import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { BsArrowRightShort as ArrowIcon } from 'react-icons/bs';
 import {
   Box,
   Button,
   Flex,
-  FormControl,
-  FormHelperText,
-  FormLabel,
   Grid,
   Heading,
-  Input,
   Text,
   VStack,
-  HStack,
   Stack,
   Center
 } from '@chakra-ui/react';
-
-import { useAuth } from '../../utils/useAuth';
 import ReactCodeInput from 'react-code-input';
 
 const PickPasscode = () => {
+  const history = useHistory();
 
   return (
     <Box textAlign='center' fontSize='xl'>
@@ -40,7 +33,7 @@ const PickPasscode = () => {
             <Center>
             <Stack direction="row" spacing={3} >
               <Button rightIcon={<ArrowIcon size={23} />}>Confirm</Button>
-              <Button variant="link">
+              <Button variant="link" onClick={() => history.push('/')}>
                 <u>Skip</u>
               </Button>
             </Stack>
