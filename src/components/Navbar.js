@@ -1,8 +1,14 @@
 import React from 'react';
-import { Text, Flex, Image, Button, HStack } from '@chakra-ui/react';
+import {
+  Text, Flex, Image, Button, HStack, Menu,
+  MenuButton,
+  MenuList,
+  MenuItem
+} from '@chakra-ui/react';
 import { useAuth } from '../utils/useAuth';
-import { GoSignOut } from 'react-icons/go';
+import { IoMdArrowDropdown as MenuIcon, IoMdExit as LogoutIcon, IoMdSettings as SettingsIcon } from 'react-icons/io';
 import logo from '../images/logo.svg';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const { signOut } = useAuth();
@@ -18,10 +24,13 @@ const Navbar = () => {
         <Text fontSize='lg' fontWeight='400' px={2}><b>Pass</b>Photo</Text>
       </Flex>
       <HStack>
-        <Button
-          leftIcon={<GoSignOut />}
-          onClick={signOut}
-        >Logout</Button>
+        <Menu>
+          <MenuButton as={Button} leftIcon={<SettingsIcon />} rightIcon={<MenuIcon />}></MenuButton>
+          <MenuList>
+            <MenuItem><Link to='/pickpasscode'>Change Passcode</Link></MenuItem>
+            <MenuItem onClick={signOut}>Logout &nbsp; <LogoutIcon /></MenuItem>
+          </MenuList>
+        </Menu>
       </HStack>
     </Flex>
   );
